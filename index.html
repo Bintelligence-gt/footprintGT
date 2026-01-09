@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login</title>
+
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-image: url("Massive X-16x9 Blue Stripe.png");
+        background-size: cover;
+        background-position: center;
+    }
+
+    .login-box {
+        width: 350px;
+        background: rgba(255, 255, 255, 0.92);
+        padding: 40px;
+        border-radius: 12px;
+        box-shadow: 0 5px 25px rgba(0,0,0,0.3);
+        text-align: center;
+        backdrop-filter: blur(4px);
+    }
+
+    .login-box img {
+        width: 80px;
+        margin-top: -80px;
+    }
+
+    .login-box h2 {
+        margin-bottom: 20px;
+        color: #222;
+    }
+
+    input {
+        width: 100%;
+        padding: 12px;
+        margin: 10px 0;
+        border-radius: 12px;
+        border: 1px solid #ccc;
+        font-size: 15px;
+    }
+
+    button {
+        width: 100%;
+        padding: 12px;
+        background: #8a008a;
+        border: none;
+        color: white;
+        font-size: 16px;
+        border-radius: 12px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background: #6b006b;
+    }
+
+    .error {
+        color: red;
+        margin-top: 10px;
+        font-size: 18px;
+    }
+</style>
+
+</head>
+<body>
+
+<div class="login-box">
+    <img src="avatar.jpg" alt="avatar">
+    <h2>Iniciar Sesión</h2>
+
+    <input type="text" id="user" placeholder="Usuario">
+    <input type="password" id="pass" placeholder="Contraseña">
+
+    <button onclick="login()">Ingresar</button>
+    <p id="error" class="error"></p>
+</div>
+
+<script>
+    function login() {
+        let user = document.getElementById("user").value.trim();
+        let pass = document.getElementById("pass").value.trim();
+        let error = document.getElementById("error");
+
+        const users = {
+            "LICHOS": { pass: "1234", url: "https://bintelligence-gt.github.io/lichosdash/" },
+            "Administrador": { pass: "1234", url: "https://bintelligence-gt.github.io/maps/" },
+            "Invitado": { pass: "1234", url: "https://google.com/" }
+        };
+
+        if (users[user] && users[user].pass === pass) {
+
+            // 🔐 Guardar sesión
+            localStorage.setItem("auth", "true");
+            localStorage.setItem("user", user);
+
+            // Redirigir
+            window.location.href = users[user].url;
+
+        } else {
+            error.innerHTML = "Usuario o contraseña incorrectos";
+        }
+    }
+
+    document.addEventListener("keydown", function(e){
+        if(e.key === "Enter"){
+            login();
+        }
+    });
+</script>
+
+</body>
+</html>
